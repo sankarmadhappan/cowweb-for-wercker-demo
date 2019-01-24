@@ -42,7 +42,7 @@ push-to-releases:
     - internal/docker-push:
         username: $REGISTRY_USERNAME
         password: $REGISTRY_PASSWORD
-        repository: iad.ocir.io/gse00014510/acme-web-app/cowweb
+        repository: phx.ocir.io/apaccpt01/hack10-registry
         tag: v1.0
         ports: 8080
         cmd: java -jar /pipeline/source/build/libs/cowweb-1.0.jar
@@ -64,8 +64,7 @@ deploy-to-cluster:
         server: $KUBERNETES_MASTER
         token: $KUBERNETES_TOKEN
         insecure-skip-tls-verify: true
-        command: delete -f $WERCKER_ROOT/kubernetes/cowweb.yaml --namespace=$COWWEB_NAMESPACE
-
+        command: delete -f $WERCKER_ROOT/kubernetes/cowweb.yaml 
     - script:
        name: wait to delete resources
        code: sleep 20
@@ -75,11 +74,11 @@ deploy-to-cluster:
         server: $KUBERNETES_MASTER
         token: $KUBERNETES_TOKEN
         insecure-skip-tls-verify: true
-        command: create -f $WERCKER_ROOT/kubernetes/cowweb.yaml --namespace=$COWWEB_NAMESPACE
+        command: create -f $WERCKER_ROOT/kubernetes/cowweb.yaml 
 
     - kubectl:
         name: get LoadBalancer public IP address
         server: $KUBERNETES_MASTER
         token: $KUBERNETES_TOKEN
         insecure-skip-tls-verify: true
-        command: get service -o jsonpath='{.items[*].status.loadBalancer.ingress[*].ip}' --namespace=$COWWEB_NAMESPACE
+        command: get service -o jsonpath='{.items[*].status.loadBalancer.ingress[*].ip}' 

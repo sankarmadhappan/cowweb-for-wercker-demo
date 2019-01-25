@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: cowweb
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: cowweb
@@ -13,7 +13,7 @@ spec:
     metadata:
       labels:
         app: cowweb
-        version: v1.0
+        version: v0.1
     spec:
       containers:
       - name: cowweb
